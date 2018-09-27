@@ -17,9 +17,9 @@ func TestGetValueOfSetPath(t *testing.T) {
 	}
 
 	var expectionsMapping = map[string]interface{}{
-		"a.b[1].c": "yes",
-		"a.b[0]":   "_",
-		"a.b":      []interface{}{"_", map[interface{}]interface{}{"c": "yes"}},
+		"a:b[1].c": "yes",
+		"a:b[0]":   "_",
+		"a:b":      []interface{}{"_", map[interface{}]interface{}{"c": "yes"}},
 	}
 
 	for path, expect := range expectionsMapping {
@@ -34,9 +34,9 @@ func TestBuildValueOfSetPath(t *testing.T) {
 	data := map[interface{}]interface{}{"foo": "bar"}
 
 	var expectionsMapping = map[string]interface{}{
-		"a.b":    map[interface{}]interface{}{"a": map[interface{}]interface{}{"b": data}},
+		"a:b":    map[interface{}]interface{}{"a": map[interface{}]interface{}{"b": data}},
 		"a[1]":   map[interface{}]interface{}{"a": []interface{}{nil, data}},
-		"a[1].b": map[interface{}]interface{}{"a": []interface{}{nil, map[interface{}]interface{}{"b": data}}},
+		"a[1]:b": map[interface{}]interface{}{"a": []interface{}{nil, map[interface{}]interface{}{"b": data}}},
 	}
 
 	for path, expected := range expectionsMapping {
