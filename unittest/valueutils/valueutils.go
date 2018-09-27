@@ -119,7 +119,7 @@ const (
 
 func traverseSetPath(in io.RuneReader, traverser parseTraverser, state int) error {
 	illegal := runeSet([]rune{',', '{', '}', '='})
-	stop := runeSet([]rune{'.', '[', ']', ',', '{', '}', '='})
+	stop := runeSet([]rune{':', '[', ']', ',', '{', '}', '='})
 	k, last, err := runesUntil(in, stop)
 	if _, ok := illegal[last]; ok {
 		return fmt.Errorf("")
@@ -159,7 +159,7 @@ func traverseSetPath(in io.RuneReader, traverser parseTraverser, state int) erro
 			return fmt.Errorf("")
 		}
 		switch last {
-		case '.':
+		case ':':
 			nextState = expectKey
 		case '[':
 			nextState = expectIndex
@@ -169,7 +169,7 @@ func traverseSetPath(in io.RuneReader, traverser parseTraverser, state int) erro
 
 	case expectKey:
 		switch last {
-		case '.':
+		case ':':
 			if e := traverser.traverseMapKey(string(k)); e != nil {
 				return e
 			}
